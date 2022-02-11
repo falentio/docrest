@@ -1,4 +1,7 @@
 FROM denoland/deno:alpine-1.18.2 as deno
+
+EXPOSE 8080:8080
+
 FROM deno as builder
 
 COPY . .
