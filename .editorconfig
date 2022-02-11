@@ -11,7 +11,7 @@ insert_final_newline = true
 [*.{yaml,yml,svelte,html}]
 indent_style = space
 
-[*.{svelte,html}]
+[*.{svelte,html,yaml,yml}]
 indent_size = 2
 
 [*.{json}]
