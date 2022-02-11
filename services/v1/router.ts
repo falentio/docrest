@@ -1,9 +1,6 @@
 import { Router } from "oak";
 import type { Context } from "oak";
 import doc from "./doc.ts";
-import { getLogger } from "std/log/mod.ts";
-
-const log = await getLogger();
 
 function isValidUrl(s: string): boolean {
 	try {
@@ -23,6 +20,15 @@ async function handleDoc(ctx: Context) {
 		ctx.response.body = {
 			error: true,
 			msg: "invalid module url",
+		};
+		return;
+	}
+
+	if (importMap && !isValidUrl(importMap)) {
+		ctx.response.status = 400;
+		ctx.response.body = {
+			error: true,
+			msg: "invalid importMap url",
 		};
 		return;
 	}
@@ -47,9 +53,8 @@ async function handleDoc(ctx: Context) {
 		ctx.response.status = 400;
 		ctx.response.body = {
 			error: true,
-			msg: "failed to generate doc, " + e.message,
+			msg: e?.message || e.toString(),
 		};
-		log.warning(e);
 	}
 }
 
