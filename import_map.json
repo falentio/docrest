@@ -1,0 +1,13 @@
+{
+	"scopes": {
+		".": {
+			"deno_doc": "https://deno.land/x/deno_doc@v0.29.0/mod.ts",
+			"deno_doc/": "https://deno.land/x/deno_doc@v0.29.0/",
+			"oak": "https://deno.land/x/oak@v10.2.0/mod.ts",
+			"oak/": "https://deno.land/x/oak@v10.2.0/",
+			"@jspm/import-map": "https://esm.sh/@jspm/import-map@0.3.3",
+			"std/": "https://deno.land/std@0.125.0/",
+			"quick-lru": "https://esm.sh/quick-lru@6.0.2"
+		}
+	}
+}
