@@ -53,7 +53,7 @@ async function handleDoc(ctx: Context) {
 		ctx.response.status = 400;
 		ctx.response.body = {
 			error: true,
-			msg: e.message,
+			msg: e?.message || e.toString(),
 		};
 	}
 }
