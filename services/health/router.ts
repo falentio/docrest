@@ -5,9 +5,12 @@ function handleHealth(ctx: Context) {
 	const now = new Date();
 	const { start } = ctx.state;
 	const uptime = now.getTime() - start.getTime();
-	const json = { start, now, uptime };
+	const json = {
+		start: start.toUTCString(),
+		now: now.toUTCString(),
+		uptime,
+	};
 	ctx.response.body = json;
-	ctx.response.headers.set("cache-control", "private, max-age=0");
 }
 
 export default new Router()
