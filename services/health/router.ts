@@ -7,6 +7,7 @@ function handleHealth(ctx: Context) {
 	const uptime = now.getTime() - start.getTime();
 	const json = { start, now, uptime };
 	ctx.response.body = json;
+	ctx.response.headers.set("cache-control", "private, max-age=0");
 }
 
 export default new Router()
