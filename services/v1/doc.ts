@@ -1,6 +1,6 @@
 import { doc } from "deno_doc";
 import type { LoadResponse } from "deno_doc";
-import type { DocNode } from "deno_doc/lib/types.d.ts"
+import type { DocNode } from "deno_doc/lib/types.d.ts";
 import { ImportMap } from "@jspm/import-map";
 
 function createLoader(reject: (msg: string) => void) {
@@ -8,7 +8,7 @@ function createLoader(reject: (msg: string) => void) {
 		if (specifier.startsWith("http")) {
 			const res = await fetch(specifier);
 			if (res.status !== 200) {
-				reject(`non 200 status code returned from ${specifier}`)
+				reject(`non 200 status code returned from ${specifier}`);
 				return undefined;
 			}
 			const content = await res.text();
@@ -22,10 +22,14 @@ function createLoader(reject: (msg: string) => void) {
 		}
 		return undefined;
 	}
-	return { load }
+	return { load };
 }
 
-async function createResolver(reject: (msg: string) => void, moduleUrl: string, importMap?: string) {
+async function createResolver(
+	reject: (msg: string) => void,
+	moduleUrl: string,
+	importMap?: string,
+) {
 	const map = new ImportMap(moduleUrl, {});
 	if (importMap) {
 		const res = await fetch(importMap);
@@ -47,10 +51,10 @@ async function createResolver(reject: (msg: string) => void, moduleUrl: string, 
 	return { resolve };
 }
 
-export default function(moduleUrl: string, importMap?: string) {
-	return new Promise<DocNode[]>(async(res, reject) => {
-		const { load } = createLoader(reject)
-		const { resolve } = await createResolver(reject, moduleUrl, importMap)
-		res(await doc(moduleUrl, { load, resolve }))
-	})
+export default function (moduleUrl: string, importMap?: string) {
+	return new Promise<DocNode[]>(async (res, reject) => {
+		const { load } = createLoader(reject);
+		const { resolve } = await createResolver(reject, moduleUrl, importMap);
+		res(await doc(moduleUrl, { load, resolve }).catch(() => {}));
+	});
 }
